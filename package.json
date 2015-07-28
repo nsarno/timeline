@@ -1,0 +1,38 @@
+{
+  "name": "Timeline",
+  "version": "0.0.0",
+  "browserify": {
+    "transform": [
+      "babelify"
+    ]
+  },
+  "scripts": {
+    "start": "npm run watch & npm run serve",
+    "build": "npm run build:js && npm run build:css && npm run build:assets",
+    "watch": "npm run watch:js & npm run watch:css & npm run watch:assets",
+    "build:js": "browserify -d --extension=.jsx --extension=.js -e app/scripts/initialize.jsx | exorcist public/bundle.map.js > public/bundle.js",
+    "build:css": "sass app/styles/app.scss public/bundle.css",
+    "build:assets": "cp -r app/assets/** public/",
+    "watch:js": "watchify --extension=.jsx --extension=.js -e app/scripts/initialize.jsx -o public/bundle.js --debug --verbose",
+    "watch:css": "nodemon --watch 'app' -e scss --exec 'npm run build:css'",
+    "watch:assets": "nodemon --watch 'app' -e html --exec 'npm run build:assets'",
+    "clean": "rm -rf public/*",
+    "serve": "browser-sync start --no-notify --server 'public' --files 'public/*'"
+  },
+  "dependencies": {
+    "flux": "^2.0.3",
+    "keymirror": "^0.1.1",
+    "node-fetch": "^1.3.2",
+    "react": "^0.13.3",
+    "react-router": "^0.13.3",
+    "whatwg-fetch": "^0.9.0"
+  },
+  "devDependencies": {
+    "babelify": "^6.1.3",
+    "browser-sync": "^2.8.0",
+    "browserify": "^11.0.0",
+    "exorcist": "^0.4.0",
+    "nodemon": "^1.3.8",
+    "watchify": "^3.3.0"
+  }
+}
