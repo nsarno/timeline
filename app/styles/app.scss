@@ -1,1 +1,12 @@
 @import "partials/base";
+
+// Refills
+@import "partials/cards";
+
+@import "partials/reset";
+@import "partials/timeline";
+
+#app {
+  padding: 5px;
+  background-color: $flat-blue-4;
+}
