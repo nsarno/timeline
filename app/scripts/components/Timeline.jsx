@@ -39,9 +39,7 @@ Timeline.EventCard = React.createClass({
   render: function() {
     return (
       <div className="tl-event-card">
-        <Card
-          header="Very important event"
-          content="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fuga, officiis sunt neque facilis culpa molestiae necessitatibus delectus veniam provident." />
+        <Card header={this.props.header} content={this.props.content} />
       </div>
     );
   }
@@ -49,12 +47,17 @@ Timeline.EventCard = React.createClass({
 
 Timeline.Event = React.createClass({
   render: function() {
-      return (
-        <div className="tl-event">
-          <Timeline.EventCard />
-          <Timeline.EventMark date="Oct 2009" />
-        </div>
-      );
+    var eventCard = function(header, content) {
+      if (header !== undefined && content !== undefined) {
+        return <Timeline.EventCard header={header} content={content}/>;
+      }
+    };
+    return (
+      <div className="tl-event">
+        {eventCard(this.props.header, this.props.content)}
+        <Timeline.EventMark date={this.props.date} />
+      </div>
+    );
   }
 });
 
