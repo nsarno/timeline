@@ -47,13 +47,14 @@ Timeline.EventCard = React.createClass({
 
 Timeline.Event = React.createClass({
   render: function() {
+    var style = { height: 100 * this.props.scale + 'px' }
     var eventCard = function(header, content) {
       if (header !== undefined && content !== undefined) {
         return <Timeline.EventCard header={header} content={content}/>;
       }
     };
     return (
-      <div className="tl-event">
+      <div className="tl-event" style={style}>
         {eventCard(this.props.header, this.props.content)}
         <Timeline.EventMark date={this.props.date} />
       </div>
