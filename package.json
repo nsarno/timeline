@@ -24,7 +24,7 @@
     "build:assets": "cp -r app/assets/** public/",
     "watch:js": "watchify --extension=.jsx --extension=.js -e app/scripts/initialize.jsx -o public/bundle.js --debug --verbose",
     "watch:css": "nodemon --watch 'app' -e scss --exec 'npm run build:css'",
-    "watch:assets": "nodemon --watch 'app' -e html --exec 'npm run build:assets'",
+    "watch:assets": "nodemon --watch 'app/assets/' -e html,png,jpg --exec 'npm run build:assets'",
     "clean": "rm -rf public/*",
     "serve": "browser-sync start --no-notify --server 'public' --files 'public/*'"
   },

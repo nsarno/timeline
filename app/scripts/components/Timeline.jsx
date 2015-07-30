@@ -27,10 +27,32 @@ Timeline.Thread = React.createClass({
 
 Timeline.EventMark = React.createClass({
   render: function() {
+    var date = function(date) {
+      if (date) {
+        return (
+          <button className="tl-event-date">
+            {date}
+          </button>
+        );
+      }
+    }
+    
     return (
       <div className="tl-event-mark">
-        <div className="tl-event-dot" />
-        <button className="tl-event-date">
+        <div className="tl-event-dot">
+          {this.props.emoji}
+        </div>
+        {date(this.props.date)}
+      </div>
+    );
+  }
+});
+
+Timeline.Date = React.createClass({
+  render: function() {
+    return (
+      <div className="tl-date">
+        <button className="tl-date-label">
           {this.props.date}
         </button>
       </div>
@@ -42,7 +64,7 @@ Timeline.EventCard = React.createClass({
   render: function() {
     return (
       <div className="tl-event-card">
-        <Card header={this.props.header} content={this.props.content} />
+        <Card img={this.props.img} header={this.props.header} content={this.props.content} />
       </div>
     );
   }
@@ -60,38 +82,10 @@ Timeline.EventLabel = React.createClass({
 
 Timeline.Event = React.createClass({
 
-  // hightlightRelatedEvents: function(key, baseColor, highlightColor) {
-  //   var events = $("." + key);
-  //   var nEvents = events.length;
-  //   var dots = $("." + key + " .tl-event-dot");
-  //   var nDots = dots.length;
-
-  //   function changeColor(color) {
-  //     for(var i = 0; i < nDots; i ++) {
-  //       dots[i].style.backgroundColor = color;
-  //     }
-  //   }
-
-  //   for(var i = 0; i < nEvents; i ++) {
-  //     events[i].onmouseover = function() {
-  //       changeColor(highlightColor);
-  //     };
-  //     events[i].onmouseout = function() {
-  //       changeColor(baseColor);
-  //     };
-  //   }
-  // },
-
-  componentDidMount: function() {
-    // if (this.props.relationKey) {
-    //   this.hightlightRelatedEvents(this.props.relationKey, '#3498DB', '#2ecc71');
-    // }
-  },
-
   render: function() {
     var style = function(scale) {
       if (scale !== undefined) {
-        return { height: 100 * scale + 'px' };
+        return { marginTop: 100 * scale + 'px' };
       } else {
         return {};
       }
@@ -104,8 +98,9 @@ Timeline.Event = React.createClass({
     var classes = classNames('tl-event', this.props.relationKey);
     return (
       <div className={classes} style={style(this.props.scale)}>
+        {this.props.children}
+        <Timeline.EventMark date={this.props.date} emoji={this.props.emoji}/>
         {this.props.label ? <Timeline.EventLabel title={this.props.label}/> : null}
-        {this.props.date ? <Timeline.EventMark date={this.props.date} /> : null}
       </div>
     );
   }

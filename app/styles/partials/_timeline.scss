@@ -1,3 +1,12 @@
+@mixin tl-row {
+  position: relative;
+  width: 100%;
+  min-height: 100px;
+  @include row;  
+}
+
+$dot-size: 2em;
+
 .tl {
   width: 100%;
   @include padding(10vh null 10vh null);
@@ -17,11 +26,21 @@
   }
 }
 
+.tl .tl-thread .tl-date {
+  @include tl-row;
+
+  .tl-date-label {
+    @include label(white, $flat-blue-1);
+    @include position(absolute, 50% null null 50%);
+    @include padding(0.5em);
+    @include margin(-0.5em null null -3em);
+    width: 6em;
+    z-index: 10;
+  }
+}
+
 .tl .tl-thread .tl-event {
-  position: relative;
-  width: 100%;
-  min-height: 100px;
-  @include row;
+  @include tl-row;
 
   .tl-event-card {
     @include span-columns(5);
@@ -30,7 +49,7 @@
   .tl-event-label {
     @include label(white, $flat-blue-1);
     @include position(absolute, 50% null null 50%);
-    @include margin(-0.5em null null 2em);
+    @include margin((-$dot-size / 2) null null 2em);
     @include padding(0.5em);
     width: 15em;
     z-index: 10;
@@ -41,12 +60,19 @@
 
     .tl-event-dot {
       @include position(absolute, 50% null null 50%);
-      @include size(1em);
-      margin-left: -0.45em;
-      border-radius: 1em;
-      border: 3px solid $flat-clouds;
+      @include size($dot-size);
+      @include margin(-$dot-size/2 null null (-$dot-size/2));
+
+      padding-top: $dot-size / 10;
+      text-align: center;
+
+
+      border-radius: $dot-size / 2;
+      border: ($dot-size / 12) solid $flat-clouds;
+
       z-index: 10;
       box-shadow: 0 2px 4px darken($base-background-color, 10%);
+
       background-color: $flat-blue-1;
     }
 

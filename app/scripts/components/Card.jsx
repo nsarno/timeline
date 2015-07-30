@@ -4,9 +4,12 @@ var Card = React.createClass({
   render: function() {
     var cardImage = function(src) {
       if (src !== undefined) {
+        var style = {
+          backgroundImage: 'url(' + src+ ')',
+        }
         return (
           <div className="card-image">
-            <img src={src} alt="" />
+            <img style={style} alt="" />
           </div>
         );
       }
@@ -14,7 +17,7 @@ var Card = React.createClass({
 
     return (
       <div className="card">
-        {cardImage(this.props.imgSrc)}
+        {cardImage(this.props.img)}
         <div className="card-header">
           {this.props.header}
         </div>
