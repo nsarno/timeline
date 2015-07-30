@@ -1,14 +1,41 @@
 var React = require('react');
 var classNames = require('classnames');
-var $ = require('jquery');
+var _ = require('lodash');
 
 var Card = require('./Card');
 
 var Timeline = React.createClass({
   render: function() {
+    var items = function (thread) {
+      return _.map(thread, function (item) {
+        if (item.label === undefined) {
+          return (<Timeline.Date date={item.date} />);
+        } else {
+          var eventCard = function (card) {
+            if (card !== undefined) {
+              return (
+                <Timeline.EventCard
+                  img={item.card.img}
+                  header={item.card.header}
+                  content={item.card.content} />
+              );
+            }
+          };
+          return (
+            <Timeline.Event label={item.label} emoji={item.emoji} scale={item.scale}>
+              {eventCard(item.card)}
+            </Timeline.Event>
+          );
+        }
+      });
+    };
+
+
     return (
       <div className="tl">
-        {this.props.children}
+        <Timeline.Thread>
+          {items(this.props.thread)}
+        </Timeline.Thread>
       </div>
     );
   }
