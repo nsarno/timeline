@@ -1,4 +1,7 @@
 var React = require('react');
+var classNames = require('classnames');
+var $ = require('jquery');
+
 var Card = require('./Card');
 
 var Timeline = React.createClass({
@@ -27,9 +30,9 @@ Timeline.EventMark = React.createClass({
     return (
       <div className="tl-event-mark">
         <div className="tl-event-dot" />
-        <div className="tl-event-date">
+        <button className="tl-event-date">
           {this.props.date}
-        </div>
+        </button>
       </div>
     );
   }
@@ -45,18 +48,64 @@ Timeline.EventCard = React.createClass({
   }
 });
 
-Timeline.Event = React.createClass({
+Timeline.EventLabel = React.createClass({
   render: function() {
-    var style = { height: 100 * this.props.scale + 'px' }
+    return (
+      <button className="tl-event-label">
+        {this.props.title}
+      </button>
+    );
+  }
+});
+
+Timeline.Event = React.createClass({
+
+  // hightlightRelatedEvents: function(key, baseColor, highlightColor) {
+  //   var events = $("." + key);
+  //   var nEvents = events.length;
+  //   var dots = $("." + key + " .tl-event-dot");
+  //   var nDots = dots.length;
+
+  //   function changeColor(color) {
+  //     for(var i = 0; i < nDots; i ++) {
+  //       dots[i].style.backgroundColor = color;
+  //     }
+  //   }
+
+  //   for(var i = 0; i < nEvents; i ++) {
+  //     events[i].onmouseover = function() {
+  //       changeColor(highlightColor);
+  //     };
+  //     events[i].onmouseout = function() {
+  //       changeColor(baseColor);
+  //     };
+  //   }
+  // },
+
+  componentDidMount: function() {
+    // if (this.props.relationKey) {
+    //   this.hightlightRelatedEvents(this.props.relationKey, '#3498DB', '#2ecc71');
+    // }
+  },
+
+  render: function() {
+    var style = function(scale) {
+      if (scale !== undefined) {
+        return { height: 100 * scale + 'px' };
+      } else {
+        return {};
+      }
+    };
     var eventCard = function(header, content) {
       if (header !== undefined && content !== undefined) {
         return <Timeline.EventCard header={header} content={content}/>;
       }
     };
+    var classes = classNames('tl-event', this.props.relationKey);
     return (
-      <div className="tl-event" style={style}>
-        {eventCard(this.props.header, this.props.content)}
-        <Timeline.EventMark date={this.props.date} />
+      <div className={classes} style={style(this.props.scale)}>
+        {this.props.label ? <Timeline.EventLabel title={this.props.label}/> : null}
+        {this.props.date ? <Timeline.EventMark date={this.props.date} /> : null}
       </div>
     );
   }

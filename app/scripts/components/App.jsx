@@ -13,11 +13,19 @@ var App = React.createClass({
     return (
       <div id="app">
         <Timeline>
-          <Timeline.Thread>
-            <Timeline.Event date="Jul 2015" header="Very important event" content={content} />
-            <Timeline.Event date="Sep 2014" scale="3"/>
-            <Timeline.Event date="Feb 2013" header="Very important event" content={content} />
-            <Timeline.Event date="Oct 2012" />
+          <Timeline.Thread id="main">
+            <Timeline.Event date="2015" label="Move to Australia" />
+            <Timeline.Event label="Release Knock" />
+            <Timeline.Event date="2014" relationKey={'epitech'} label="Graduate from Epitech" />
+            <Timeline.Event label="StartupBus Finalist" />
+            <Timeline.Event date="2013" label="Hired at Quanta Computing" />
+            <Timeline.Event date="2012" label="Study abroad in California" />
+            <Timeline.Event label="Intern at Appsfire" />
+            <Timeline.Event date="2011" relationKey={['epitech']} label="Student Teacher at Epitech" />
+            <Timeline.Event date="2010" label="Intern at Miyowa" />
+            <Timeline.Event date="2009" relationKey={['epitech']} label="First year at Epitech" />
+            <Timeline.Event date="1998" label="Bleeep... First computer" scale={6}/>
+            <Timeline.Event date="1991" label="Born" />
           </Timeline.Thread>
         </Timeline>
         <RouteHandler />

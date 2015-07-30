@@ -1,0 +1,10 @@
+@mixin label($text-color:white, $bg-color:blue) {
+  color: $text-color;
+  background-color: $bg-color;
+  box-shadow: 0 2px 4px darken($base-background-color, 10%);
+  text-align: center;
+  border: 0.1em solid $text-color;
+  border-radius: 0.15em;
+  min-width: 6em;
+  overflow: hidden;
+}

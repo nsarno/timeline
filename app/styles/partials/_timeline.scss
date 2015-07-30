@@ -5,7 +5,7 @@
 
 .tl .tl-thread {
   position: relative;
-  width: 100%;
+  // width: 100%;
   @include outer-container;
 
   .tl-timeline {
@@ -21,11 +21,19 @@
   position: relative;
   width: 100%;
   min-height: 100px;
-
-  @include row(block);
+  @include row;
 
   .tl-event-card {
     @include span-columns(5);
+  }
+
+  .tl-event-label {
+    @include label(white, $flat-blue-1);
+    @include position(absolute, 50% null null 50%);
+    @include margin(-0.5em null null 2em);
+    @include padding(0.5em);
+    width: 15em;
+    z-index: 10;
   }
 
   .tl-event-mark {
@@ -33,33 +41,22 @@
 
     .tl-event-dot {
       @include position(absolute, 50% null null 50%);
-      margin-left: -0.5em;
-      margin-top: -1.5em;
-
       @include size(1em);
+      margin-left: -0.45em;
       border-radius: 1em;
       border: 3px solid $flat-clouds;
-
       z-index: 10;
       box-shadow: 0 2px 4px darken($base-background-color, 10%);
-  
       background-color: $flat-blue-1;
     }
+
     .tl-event-date {
+      @include label(white, $flat-blue-1);
       @include position(absolute, 50% null null 50%);
-      @include size(6em 2em);
-      @include margin(0.5em null null -3em);
-      @include padding(0.25em);
-      font-size: modular-scale(-1);
-      text-align: center;
-
+      @include padding(0.5em);
+      @include margin(-0.5em null null -8em);
+      width: 6em;
       z-index: 10;
-      box-shadow: 0 2px 4px darken($base-background-color, 10%);
-
-      background-color: $flat-blue-1;
     }
   }
 }
-
-
-
