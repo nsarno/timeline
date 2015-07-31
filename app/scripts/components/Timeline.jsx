@@ -6,23 +6,30 @@ var Card = require('./Card');
 
 var Timeline = React.createClass({
   render: function() {
+
+    // Return an event card component if card is defined
+    var eventCard = function (card) {
+      if (card !== undefined) {
+        return (
+          <Timeline.EventCard
+            img={card.img}
+            header={card.header}
+            content={card.content} />
+        );
+      }
+    };
+
+    // Create timeline children from thread JSON
     var items = function (thread) {
+      var i = 0;
       return _.map(thread, function (item) {
         if (item.label === undefined) {
-          return (<Timeline.Date date={item.date} />);
+          // Item is a date
+          return (<Timeline.Date key={i++} date={item.date} />);
         } else {
-          var eventCard = function (card) {
-            if (card !== undefined) {
-              return (
-                <Timeline.EventCard
-                  img={item.card.img}
-                  header={item.card.header}
-                  content={item.card.content} />
-              );
-            }
-          };
+          // Item is an event
           return (
-            <Timeline.Event label={item.label} emoji={item.emoji} scale={item.scale}>
+            <Timeline.Event key={i++} label={item.label} emoji={item.emoji} scale={item.scale}>
               {eventCard(item.card)}
             </Timeline.Event>
           );
